@@ -1,21 +1,25 @@
 function Fopt = MIMIC_FS(CFmic,FFmic,varargin)
 %=========================================================================%
-%                    Ñ¡Ôñµ±Ç°×Ó¼¯µÄÖ÷ÒªÌØÕ÷(predominant feature)           %
+%                    é€‰æ‹©å½“å‰å­é›†çš„ä¸»è¦ç‰¹å¾(predominant feature)           %
 %=========================================================================%
 % Description:
-%    ´Óµ±Ç°×îÓÅ×Ó¼¯ÖĞÑ¡Ôñµ±Ç°×Ó¼¯µÄÖ÷ÒªÌØÕ÷
+%    ä»å½“å‰æœ€ä¼˜å­é›†ä¸­é€‰æ‹©å½“å‰å­é›†çš„ä¸»è¦ç‰¹å¾
 % 
 %-------------------------------------------------------------------------
-% ÊäÈë£º 
-%       CFmic    ÌØÕ÷ºÍÀàÖ®¼äµÄMIC
-%       FFmic    ÌØÕ÷ºÍÌØÕ÷Ö®¼äµÄMIC 
+% è¾“å…¥ï¼š 
+%       CFmic    ç‰¹å¾å’Œç±»ä¹‹é—´çš„MIC
+%       FFmic    ç‰¹å¾å’Œç‰¹å¾ä¹‹é—´çš„MIC 
 %       index    i
-%       Fopt     µ±Ç°×îÓÅ×Ó¼¯
-% Êä³ö£º
+%       Fopt     å½“å‰æœ€ä¼˜å­é›†
+% è¾“å‡ºï¼š
 % 		Fopt 
 %--------------------------------------------------------------------------
 % Reference:
 %   2018-Feature selection for IoT based on maximal information coefficient
+%
+% version 1.0 -- January/2019
+% Implemented by: Liyu Yang
+% Contact Info  : yangliyuokn@sina.cn
 
 thet = [];
 if length(varargin) >=1
@@ -25,13 +29,13 @@ if isempty(thet)
     thet           = 0.5;
 end
 
-[~,Forder]          = sort(CFmic,'descend'); % Ç°value ºóindex
-% Ñ¡Ôñµ±Ç°×Ó¼¯µÄÖ÷ÒªÌØÕ÷(predominant feature)   FFmic
+[~,Forder]          = sort(CFmic,'descend'); % å‰value åindex
+% é€‰æ‹©å½“å‰å­é›†çš„ä¸»è¦ç‰¹å¾(predominant feature)   FFmic
 PredFeature          = Forder(1);
 Forder(1)            = [];
 Fopt                 = PredFeature;
 while ~isempty(Forder)
-    PredFeature      = Forder(1);   % i    iºÍFopt  getMainElement
+    PredFeature      = Forder(1);   % i    iå’ŒFopt  getMainElement
 %         disp([num2str(k),' Fopt=',num2str(Fopt),' PredFeature =',num2str(PredFeature)]);
     if (CFmic(PredFeature) - sum(FFmic([PredFeature,Fopt],[PredFeature,Fopt]))./length(Fopt)) < thet
         Forder(Forder==PredFeature) = []; 
