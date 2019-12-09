@@ -1,22 +1,26 @@
 function FStage1 = Two_Stage_MIC(CFmic,FFmic,varargin)
 %=========================================================================%
-%                             Ñ¡Ôñµ±Ç°×Óµ±Ç°×îÓÅ×Ó¼¯                       %
+%                             é€‰æ‹©å½“å‰å­å½“å‰æœ€ä¼˜å­é›†                       %
 %=========================================================================%
 % Description:
-%    ´Óµ±Ç°×îÓÅ×Ó¼¯ÖĞÑ¡Ôñµ±Ç°×Ó¼¯µÄÖ÷ÒªÌØÕ÷
+%    ä»å½“å‰æœ€ä¼˜å­é›†ä¸­é€‰æ‹©å½“å‰å­é›†çš„ä¸»è¦ç‰¹å¾
 % 
 %-------------------------------------------------------------------------
-% ÊäÈë£º 
-%       CFmic    ÌØÕ÷ºÍÀàÖ®¼äµÄMIC
-%       FFmic    ÌØÕ÷ºÍÌØÕ÷Ö®¼äµÄMIC 
+% è¾“å…¥ï¼š 
+%       CFmic    ç‰¹å¾å’Œç±»ä¹‹é—´çš„MIC
+%       FFmic    ç‰¹å¾å’Œç‰¹å¾ä¹‹é—´çš„MIC 
 %       index    i  
-% Êä³ö£º
-% 		FStage1  µ±Ç°×îÓÅ×Ó¼¯
+% è¾“å‡ºï¼š
+% 		FStage1  å½“å‰æœ€ä¼˜å­é›†
 %--------------------------------------------------------------------------
 %  thet --- default = 0.5(0,1)
 % Reference:
 %   2019-Maximal Information Coefficient-Based Two-Stage Feature Selection
 % Method for Railway Condition Monitoring
+%
+% version 1.0 -- January/2019
+% Implemented by: Liyu Yang
+% Contact Info  : yangliyuokn@sina.cn
 
 %% 
 thet                = [];
@@ -27,19 +31,19 @@ if isempty(thet)
     thet            = 0.5;
 end
 
-%% Stage1 Ñ¡ÔñÓëÀàÇ¿ÁªµÄÌØÕ÷,±£Áô2/3
+%% Stage1 é€‰æ‹©ä¸ç±»å¼ºè”çš„ç‰¹å¾,ä¿ç•™2/3
 [CFmicSort,Forder]  = sort(CFmic,'descend');
 CFmicStage1         = CFmicSort(1:2*round(length(CFmic)/3));
 FStage1             = Forder(1:2*round(length(CFmic)/3));
 
-%% ²¹È« 
+%% è¡¥å…¨ 
 for i = 1:size(FFmic,1)-1
     FFmic(i:end,i) = FFmic(i,i:end);
 end
 FFmic             = FFmic + diag(ones(size(FFmic,1),1));
 FFmicSelected       = FFmic(FStage1,FStage1);
 
-%% Stage1 Ñ¡ÔñÏà»¥Ö®¼äÈßÓàĞÔµÍµÄÌØÕ÷(ÌÔÌ­ÌØÕ÷Ö®¼äMIC´óÓÚãĞÖµ)
+%% Stage1 é€‰æ‹©ç›¸äº’ä¹‹é—´å†—ä½™æ€§ä½çš„ç‰¹å¾(æ·˜æ±°ç‰¹å¾ä¹‹é—´MICå¤§äºé˜ˆå€¼)
 k                   = 1;
 while k<length(FStage1)
      if sum(FFmicSelected(1:k,k)>thet)>0
