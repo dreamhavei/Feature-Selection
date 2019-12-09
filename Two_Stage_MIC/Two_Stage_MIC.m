@@ -45,9 +45,11 @@ FFmicSelected       = FFmic(FStage1,FStage1);
 
 %% Stage1 选择相互之间冗余性低的特征(淘汰特征之间MIC大于阈值)
 k                   = 1;
-while k<length(FStage1)
-     if sum(FFmicSelected(1:k,k)>thet)>0
-         FStage1(k) = [];
+res = [];
+while k<size(FFmicSelected,1)
+     if sum(FFmicSelected(1:(k-1),k)>thet)>0
+         res = [res,k];
      end
      k = k + 1;
 end
+FStage1(res) = [];
