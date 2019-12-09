@@ -1,21 +1,25 @@
 function MB = findMBElement(index,Fopt,CFmic,FFmic)
 %=========================================================================%
-%                    Ñ¡Ôñµ±Ç°×Ó¼¯µÄÖ÷ÒªÌØÕ÷(predominant feature)           %
+%                    é€‰æ‹©å½“å‰å­é›†çš„ä¸»è¦ç‰¹å¾(predominant feature)           %
 %=========================================================================%
 % Description:
-%    ´Óµ±Ç°×îÓÅ×Ó¼¯ÖĞÑ¡Ôñµ±Ç°×Ó¼¯µÄÖ÷ÒªÌØÕ÷
+%    ä»å½“å‰æœ€ä¼˜å­é›†ä¸­é€‰æ‹©å½“å‰å­é›†çš„ä¸»è¦ç‰¹å¾
 % 
 %-------------------------------------------------------------------------
-% ÊäÈë£º 
-%       CFmic    ÌØÕ÷ºÍÀàÖ®¼äµÄMIC
-%       FFmic    ÌØÕ÷ºÍÌØÕ÷Ö®¼äµÄMIC 
+% è¾“å…¥ï¼š 
+%       CFmic    ç‰¹å¾å’Œç±»ä¹‹é—´çš„MIC
+%       FFmic    ç‰¹å¾å’Œç‰¹å¾ä¹‹é—´çš„MIC 
 %       index    i
-%       Fopt     µ±Ç°×îÓÅ×Ó¼¯
-% Êä³ö£º
-% 		MB: MB(i) iµÄ±Æ½üÂí¶û¿Æ·òÌº
+%       Fopt     å½“å‰æœ€ä¼˜å­é›†
+% è¾“å‡ºï¼š
+% 		MB: MB(i) içš„é€¼è¿‘é©¬å°”ç§‘å¤«æ¯¯
 %--------------------------------------------------------------------------
 % Reference:
 %   2018-Feature selection for IoT based on maximal information coefficient
+%
+% version 1.0 -- January/2019
+% Implemented by: Liyu Yang
+% Contact Info  : yangliyuokn@sina.cn
 
 MB = Fopt(and(bsxfun(@gt,CFmic(Fopt),CFmic(index)),bsxfun(@lt,CFmic(index),[(FFmic(Fopt(Fopt<index),index))',FFmic(index,Fopt(Fopt>=index))])));
 
